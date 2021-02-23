@@ -2,11 +2,12 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
+import { IVideoProps } from './typings';
 
-function VideoPlayer(props: any) {
-  const { id = '' } = props;
+function VideoPlayer(props: IVideoProps) {
+  const { id = {}, snippet = {} } = props;
 
-  if (props.selectedVideo && !props.selectedVideo.id.videoId) {
+  if (!id.videoId) {
     return (
       <div className="empty-video">
         <Typography variant="h4">
@@ -16,7 +17,7 @@ function VideoPlayer(props: any) {
     );
   }
 
-  const VIDEO_URL = `https://www.youtube.com/embed/${id}`;
+  const VIDEO_URL = `https://www.youtube.com/embed/${id.videoId}`;
   console.log({ VIDEO_URL });
 
   return (
@@ -30,9 +31,9 @@ function VideoPlayer(props: any) {
           height="400"
         />
       </Card>
-      <Typography variant="h5">{props.selectedVideo.snippet.title}</Typography>
+      <Typography variant="h5">{snippet.title}</Typography>
       <Typography variant="body2" color="textSecondary" component="p">
-        {props.selectedVideo.snippet.description}
+        {snippet.description}
       </Typography>
     </div>
   );
@@ -40,3 +41,4 @@ function VideoPlayer(props: any) {
 
 export { VideoPlayer };
 export default VideoPlayer;
+
